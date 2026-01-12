@@ -132,25 +132,23 @@ Advanced reporting and analytics dashboards.
 Role-based permissions beyond Django’s default User model.
 
 ## 🤝 Contributing
-Fork the repository
+- Fork the repository
 
-Create a feature branch (git checkout -b feature-name)
+- Create a feature branch (git checkout -b feature-name)
 
-Commit changes (git commit -m "Add feature")
+- Commit changes (git commit -m "Add feature")
 
-Push to branch (git push origin feature-name)
+- Push to branch (git push origin feature-name)
 
-Open a Pull Request
+- Open a Pull Request
 
 ## 📜 License
-This project is licensed under the MIT License. See the [Looks like the result wasn't safe to show. Let's switch things up and try something else!] file for details.
+This project is licensed under the MIT License. See the file for details.
 
 ## 👥 Authors
 FrewLg – Initial development & repository setup
 
 Contributors welcome!
-
-Code
-
+ 
 ---
  
