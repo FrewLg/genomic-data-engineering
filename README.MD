@@ -40,4 +40,114 @@ The **Genomic Data Engineering Platform** is a Django-based application designed
 
 ---
 
-## 📂 Project Structure
+
+---
+
+## ⚙️ Installation & Setup
+
+## 1. **Clone the repository**
+   ```bash
+   git clone https://github.com/FrewLg/genomic-data-engineering.git
+   cd genomic-data-engineering
+
+## 2 Create a virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
+## Install dependencies
+
+```bash
+pip install -r requirements.txt
+## Apply migrations
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+## Create a superuser
+
+```bash
+python manage.py createsuperuser
+## Run the development server
+
+```bash
+python manage.py runserver
+## 📊 Database Models
+Project
+project_id (Primary Key, AutoField)
+
+title (Unique, CharField)
+
+description (TextField)
+
+submission_date, created_date, updated_at
+
+submitted_by (FK → User)
+
+status (FK → ProjectStatus)
+
+attachment, mou (CharField / FileField)
+
+organization, duration
+
+approved_by (FK → User)
+
+metadata_type (FK → MetadataType)
+
+irb_code (CharField)
+
+approved_at, sample_submitted_at
+
+ProjectStatus
+id (Primary Key)
+
+name (CharField)
+
+MetadataType
+id (Primary Key)
+
+name (CharField)
+
+## 🔒 Security & Compliance
+Role-based access control ensures only authorized users can approve projects.
+
+IRB codes and metadata types provide compliance with research standards.
+
+Audit trail maintained via timestamps (created_date, updated_at, approved_at).
+
+## 📈 Future Enhancements
+File uploads for attachments and MoUs using Django’s FileField.
+
+REST API endpoints for integration with external genomic data pipelines.
+
+Advanced reporting and analytics dashboards.
+
+Role-based permissions beyond Django’s default User model.
+
+## 🤝 Contributing
+Fork the repository
+
+Create a feature branch (git checkout -b feature-name)
+
+Commit changes (git commit -m "Add feature")
+
+Push to branch (git push origin feature-name)
+
+Open a Pull Request
+
+## 📜 License
+This project is licensed under the MIT License. See the [Looks like the result wasn't safe to show. Let's switch things up and try something else!] file for details.
+
+## 👥 Authors
+FrewLg – Initial development & repository setup
+
+Contributors welcome!
+
+Code
+
+---
+
+This README gives a **professional overview** of your project, explains its purpose, and guides collaborators through setup and contribution.  
+
+Would you like me to also add a **diagram of the workflow** (submission → approval → metadata → sample submission) in Markdown so the process is visually clear?
