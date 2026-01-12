@@ -49,31 +49,37 @@ The **Genomic Data Engineering Platform** is a Django-based application designed
    ```bash
    git clone https://github.com/FrewLg/genomic-data-engineering.git
    cd genomic-data-engineering
-
+  ``` 
 ## 2 Create a virtual environment
 
 ```bash
 python -m venv venv
 source venv/bin/activate   # Linux/Mac
 venv\Scripts\activate      # Windows
+``` 
 ## Install dependencies
 
 ```bash
 pip install -r requirements.txt
+``` 
 ## Apply migrations
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
+``` 
 ## Create a superuser
 
 ```bash
 python manage.py createsuperuser
+``` 
 ## Run the development server
 
 ```bash
 python manage.py runserver
+``` 
 ## 📊 Database Models
+```bash
 Project
 project_id (Primary Key, AutoField)
 
@@ -108,7 +114,7 @@ MetadataType
 id (Primary Key)
 
 name (CharField)
-
+``` 
 ## 🔒 Security & Compliance
 Role-based access control ensures only authorized users can approve projects.
 
@@ -147,7 +153,4 @@ Contributors welcome!
 Code
 
 ---
-
-This README gives a **professional overview** of your project, explains its purpose, and guides collaborators through setup and contribution.  
-
-Would you like me to also add a **diagram of the workflow** (submission → approval → metadata → sample submission) in Markdown so the process is visually clear?
+ 
