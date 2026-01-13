@@ -26,6 +26,7 @@ path("genome/", admin.site.urls), # 👈 this is required
 # path("admin/", admin , name="admin"), # 👈 this is required
 path("", homepage, name="homepage"), # empty path → homepage
 path("genomic/", include("projects.urls")), # include your app urls
+path("accounts/", include("allauth.urls")), # 👈 adds login/logout/social routes
   
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -37,7 +37,9 @@ SECRET_KEY = 'django-insecure-ps%w9+6(0_509fnc(&^&)er@t(iame78)7s%01!jux3a)d_b)h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+#ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -64,6 +66,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    "django.contrib.sites",
+    "allauth", 
+    "allauth.account", 
+    "allauth.socialaccount", 
+    "allauth.socialaccount.providers.google",
+    # 'allauth.socialaccount.providers.google',
+
 ]
 
 MIDDLEWARE = [
@@ -74,6 +84,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -95,7 +106,14 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = [ 
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend", 
+    ] 
+# LOGIN_REDIRECT_URL = "/"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -157,7 +175,7 @@ UNFOLD = {
         {
             "icon": "diamond",
             "title": ("GenDe Homepage"),
-            "link": "https://example.com",
+            "link": "https://127.0.0.1:8000",
         },
         # ...
     ],
@@ -287,3 +305,23 @@ UNFOLD = {
 }
 
  
+
+
+ # Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '1031956378248-usbc3vaqh4knu1094fdm1nm2c78qem9s.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        },
+        "AUTH_PARAMS": { 
+            "access_type": "online", 
+            },
+          "OAUTH2_CLIENT_CLASS": "allauth.socialaccount.providers.oauth2.client.OAuth2Client",
+    }
+}
+LOGIN_REDIRECT_URL = "/genome/projects/project/"
