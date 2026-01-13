@@ -18,7 +18,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # 1. The URL used to access static files
@@ -49,15 +49,14 @@ INSTALLED_APPS = [
      "projects.apps.ProjectsConfig",
      "jazzmin",
         # "unfold",  # before django.contrib.admin
-# "projects",
-    "unfold.contrib.filters",  # optional, if special filters are needed
-    "unfold.contrib.forms",  # optional, if special form elements are needed
-    "unfold.contrib.inlines",  # optional, if special inlines are needed
-    "unfold.contrib.import_export",  # optional, if django-import-export package is used
-    "unfold.contrib.guardian",  # optional, if django-guardian package is used
-    "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
-    "unfold.contrib.location_field",  # optional, if django-location-field package is used
-    "unfold.contrib.constance", 
+    # "unfold.contrib.filters",  # optional, if special filters are needed
+    # "unfold.contrib.forms",  # optional, if special form elements are needed
+    # "unfold.contrib.inlines",  # optional, if special inlines are needed
+    # "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    # "unfold.contrib.guardian",  # optional, if django-guardian package is used
+    # "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
+    # "unfold.contrib.location_field",  # optional, if django-location-field package is used
+    # "unfold.contrib.constance", 
     # "grappelli",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -82,7 +81,8 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+       
+        "DIRS": [BASE_DIR / "templates"], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

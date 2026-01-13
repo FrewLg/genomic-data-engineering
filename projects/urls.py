@@ -1,12 +1,10 @@
 from django.urls import path
-from .views import project_list, project_detail 
-from . import views
-
+from .views import project_list, project_detail , upload_sequence
 urlpatterns = [
-    path("sss", views.index, name="index"),
-    
-    path("projects-list/", project_list, name="project_list"),
-    path("projects-list/<int:pk>/", project_detail, name="project_detail"),
+    # path("sss", views.index, name="index"),
+    path("upload/", upload_sequence, name="upload_sequence"),
+    path("all/", project_list, name="project_list"),
+    path("all/<int:pk>/", project_detail, name="project_detail"),
 
 ]
 

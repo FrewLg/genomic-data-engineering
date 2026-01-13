@@ -14,7 +14,6 @@ class MetadataType(models.Model):
     def __str__(self):
         return self.name
 
-
 class Project(models.Model):
     project_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255, unique=True)
@@ -29,9 +28,9 @@ class Project(models.Model):
     submission_date = models.DateTimeField(auto_now_add=True, editable=False)
     status = models.ForeignKey(ProjectStatus, on_delete=models.SET_NULL, null=True, editable=False)
 
-    # attachment = models.CharField(max_length=255, null=True, blank=True)
     attachment = models.FileField(upload_to="project_attachments/", blank=True, null=True)
-    mou = models.CharField(max_length=255, null=True, blank=True)
+    mou = models.FileField(upload_to="project_attachments/", blank=True, null=True)
+    sequence_result = models.FileField(upload_to="sequence_result/", blank=True, null=True)
 
     organization = models.CharField(max_length=255)
     duration = models.CharField(max_length=100)
@@ -47,17 +46,6 @@ class Project(models.Model):
         return self.title
 
 
-# from django.db import models
-# from django.contrib.auth.models import User  # Assuming you use Django's built-in User model
-
-# class Project(models.Model):
-#     # Example placeholder, assuming you already have this defined elsewhere
-#     project_id = models.AutoField(primary_key=True)
-#     title = models.CharField(max_length=255, unique=True)
-
-#     def __str__(self):
-#         return self.title
-
 
 class LabFacility(models.Model):
     lab_id = models.AutoField(primary_key=True)
@@ -65,7 +53,6 @@ class LabFacility(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Organism(models.Model):
     organism_id = models.AutoField(primary_key=True)
@@ -81,7 +68,6 @@ class SampleType(models.Model):
 
     def __str__(self):
         return self.type_name
-
 
 class Location(models.Model):
     location_id = models.AutoField(primary_key=True)
@@ -117,7 +103,7 @@ class PhenotypeMetadata(models.Model):
 
 class SamplesMetadata(models.Model):
     submission_id = models.AutoField(primary_key=True)  # SERIAL PK
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="samples")
     facility_lab = models.ForeignKey(LabFacility, on_delete=models.CASCADE, related_name="facility_samples")
     referring_lab = models.ForeignKey(LabFacility, on_delete=models.CASCADE, related_name="referring_samples")
     organism = models.ForeignKey(Organism, on_delete=models.CASCADE)

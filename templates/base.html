@@ -3,15 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My Site{% endblock %}</title>
-    <!-- Load Jazzmin CSS -->
+    <title>{% block title %}Homepage{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'jazzmin/css/main.css' %}">
 </head>
 <body class="sidebar-mini">
     <div class="content-wrapper">
         <section class="content">
-            {% block content %}
-            {% endblock %}
+            {% block content %}{% endblock %}
         </section>
     </div>
 </body>
