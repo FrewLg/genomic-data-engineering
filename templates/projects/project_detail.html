@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Project Detail{% endblock %}
+{% block content %}
+  <h1>{{ project.title }}</h1>
+  <p>{{ project.description }}
+    
+  </p>
+  {% if project.attachment %}
+  <p><a href="{{ project.attachment.url }}">Download Attachment</a></p>
+{% endif %}
+
+<h2>Samples Metadata</h2>
+
+<table>
+  <tr>
+    <th>Organism</th>
+    <th>Sample Type</th>
+    <th>Location</th>
+    <th>Host</th>
+    <th>Sequencing</th>
+    <th>Phenotype</th>
+  </tr>
+  {% for sample in samples %}
+  <tr>
+    <td>{{ sample.organism }}</td>
+    <td>{{ sample.sample_type }}</td>
+    <td>{{ sample.location }}</td>
+    <td>{{ sample.host }}</td>
+    <td>{{ sample.sequencing }}</td>
+    <td>{{ sample.phenotype }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">No samples yet.</td></tr>
+  {% endfor %}
+</table>
+ 
+{% endblock %}
+
+
+
+

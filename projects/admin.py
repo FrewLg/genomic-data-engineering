@@ -34,7 +34,7 @@ class SamplesMetadataInline(admin.StackedInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("project_id", "title", "organization", "status", "submitted_by",   "submission_date",  )
+    list_display = ("project_id", "title", "attachment", "organization", "status", "submitted_by",   "submission_date",  )
     search_fields = ("title", "organization", "irb_code")
     # list_filter = ("status", "submission_date",  )
     ordering = ("created_date",)
@@ -76,15 +76,22 @@ class SamplesMetadataAdmin(admin.ModelAdmin):
     search_fields = ("submission_id", "project__title", "user__username", "organism__name")
     list_filter = ("review_status", "entry_date", "facility_lab", "organism", "sample_type")
     ordering = ("-entry_date",)
+    # exclude= ("user",   )
 # Or group them into sections 
     fieldsets = ( 
-        ("Project --", { "fields": ("project", "user", "entry_date", "data_entered_by"),
-                                 "classes": ("wide",),
-                                   }),
+        ("Project --", {"fields": ("project",   "entry_date",  ),
+                        "classes": ("wide",),  }),
         ("Sample Details", { "fields": ("organism", "sample_type", "location", "host"), "classes": ("wide",), }), 
         ("Lab Details", { "fields": ("facility_lab", "referring_lab", "sequencing", "phenotype") ,"classes": ("wide",),}), 
         ("Review", { "fields": ( ) }), )
-
+    def save_model(self, request, obj, form, change): 
+        if not obj.pk: # only set on creation 
+            obj.data_entered_by = request.user 
+            super().save_model(request, obj, form, change)
+    def get_user(self, obj): 
+        return obj.user.username # or obj.user.email 
+    # get_user.admin_order_field = "user" # allows sorting 
+    # get_user.short_description = "Submitted By"
 @admin.register(LabFacility)
 class LabFacilityAdmin(admin.ModelAdmin):
     list_display = ("lab_id", "name")

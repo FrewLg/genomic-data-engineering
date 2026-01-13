@@ -39,14 +39,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 
 # Application definition
 
 INSTALLED_APPS = [
      "projects.apps.ProjectsConfig",
-    #  "jazzmin",
-        "unfold",  # before django.contrib.admin
-
+     "jazzmin",
+        # "unfold",  # before django.contrib.admin
+# "projects",
     "unfold.contrib.filters",  # optional, if special filters are needed
     "unfold.contrib.forms",  # optional, if special form elements are needed
     "unfold.contrib.inlines",  # optional, if special inlines are needed
@@ -153,7 +156,7 @@ UNFOLD = {
     "SITE_DROPDOWN": [
         {
             "icon": "diamond",
-            "title": ("My site"),
+            "title": ("GenDe Homepage"),
             "link": "https://example.com",
         },
         # ...
@@ -184,7 +187,7 @@ UNFOLD = {
     "ENVIRONMENT": "sample_app.environment_callback", # environment name in header
     "ENVIRONMENT_TITLE_PREFIX": "sample_app.environment_title_prefix_callback", # environment name prefix in title tag
     "DASHBOARD_CALLBACK": "sample_app.dashboard_callback",
-    "THEME": "light", # Force theme: "dark" or "light". Will disable theme switcher
+    # "THEME": "light", # Force theme: "dark" or "light". Will disable theme switcher
     "LOGIN": {
         "image": lambda request: static("public/imgs/ephi.png"),
         "redirect_after": lambda request: reverse_lazy("admin:APP_MODEL_changelist"),
@@ -244,11 +247,11 @@ UNFOLD = {
     },
     "SIDEBAR": {
         "show_search": False,  # Search in applications and models names
-        "command_search": False,  # Replace the sidebar search with the command search
-        "show_all_applications": False,  # Dropdown with all applications and models
+        "command_search": True,  # Replace the sidebar search with the command search
+        "show_all_applications": True,  # Dropdown with all applications and models
         "navigation": [
             {
-                "title": ("Navigation"),
+                "title": ("Dashboard"),
                 "separator": True,  # Top border
                 "collapsible": True,  # Collapsible group of links
                 "items": [
@@ -264,6 +267,18 @@ UNFOLD = {
                         "title": ("Users"),
                         "icon": "people",
                      },
+                     {
+                        "title": ("Projects"),
+                        "icon": "dataset",
+                     },
+                      {
+                        "title": ("Setting"),
+                        "icon": "settings",  # Supported icon set: https://fonts.google.com/icons
+                         "badge": "sample_app.badge_callback",
+                        "badge_variant": "info", # info, success, warning, primary, danger
+                        "badge_style": "solid", # background fill style
+                        "permission": lambda request: request.user.is_superuser,
+                    },
                 ],
             },
         ],

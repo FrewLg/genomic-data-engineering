@@ -29,13 +29,14 @@ class Project(models.Model):
     submission_date = models.DateTimeField(auto_now_add=True, editable=False)
     status = models.ForeignKey(ProjectStatus, on_delete=models.SET_NULL, null=True, editable=False)
 
-    attachment = models.CharField(max_length=255, null=True, blank=True)
+    # attachment = models.CharField(max_length=255, null=True, blank=True)
+    attachment = models.FileField(upload_to="project_attachments/", blank=True, null=True)
     mou = models.CharField(max_length=255, null=True, blank=True)
 
     organization = models.CharField(max_length=255)
     duration = models.CharField(max_length=100)
 
-    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="approved_projects")
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, editable=False, related_name="approved_projects")
     metadata_type = models.ForeignKey(MetadataType, on_delete=models.SET_NULL, null=True, blank=True)
 
     irb_code = models.CharField(max_length=255, null=True, blank=True)
@@ -117,7 +118,6 @@ class PhenotypeMetadata(models.Model):
 class SamplesMetadata(models.Model):
     submission_id = models.AutoField(primary_key=True)  # SERIAL PK
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False, related_name="sample_submissions")
     facility_lab = models.ForeignKey(LabFacility, on_delete=models.CASCADE, related_name="facility_samples")
     referring_lab = models.ForeignKey(LabFacility, on_delete=models.CASCADE, related_name="referring_samples")
     organism = models.ForeignKey(Organism, on_delete=models.CASCADE)
@@ -128,8 +128,8 @@ class SamplesMetadata(models.Model):
     phenotype = models.ForeignKey(PhenotypeMetadata, on_delete=models.CASCADE)
 
     entry_date = models.DateField(null=True, blank=True )  # Default CURRENT_TIMESTAMP
-    data_entered_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False,  related_name="entered_samples")
-
+    # data_entered_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False,  related_name="entered_samples")
+    data_entered_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False, )
     review_status = models.CharField(
         max_length=50,
         choices=[("Pending", "Pending"), ("Approved", "Approved"), ("Rejected", "Rejected")],

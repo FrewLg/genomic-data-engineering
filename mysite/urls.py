@@ -18,15 +18,16 @@ from django.contrib import admin
 from django.urls import include, path
 # from . import views
 
- 
+from django.conf import settings 
+from django.conf.urls.static import static
  
 
 urlpatterns = [
-    path("projects/", include("projects.urls")),
+    # path("projects/", include("projects.urls")),
     # path("", name="index" ),
     # path("ProjectStatus/", include("ProjectStatus.urls")),
     # path("", views.index, name="index"),
+path("allprojects", include("projects.urls")), # include your app urls
+    path("admsin/", admin.site.urls),
 
-    path("admin/", admin.site.urls),
-
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
