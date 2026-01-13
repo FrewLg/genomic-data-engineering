@@ -23,6 +23,14 @@
     padding: 15px 40px;
     border-bottom: 4px solid var(--accent);
 }
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.form-row .field-box {
+    flex: 1;
+}
+
 
 #header a:link, #header a:visited {
     color: #fff;

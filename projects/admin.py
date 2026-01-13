@@ -1,4 +1,5 @@
 from django.contrib import admin
+ 
 # from .models import Project, ProjectStatus, MetadataType
 from .models import (
     Project, 
@@ -13,6 +14,9 @@ from .models import (
     SequencingMetadata,
     PhenotypeMetadata,
 )
+
+ 
+
 admin.site.site_header = "EPHI- GenDE "
 admin.site.site_title = "Admin"
 admin.site.index_title = "Management Dashboard"
@@ -22,18 +26,18 @@ admin.site.enable_nav_sidebar = True # Optional
 
 # Add the media property to the global site object
 admin.site.index_template = None
-
-class SamplesMetadataInline(admin.TabularInline):
+#TabularInline vs StackedInline
+class SamplesMetadataInline(admin.StackedInline):
     model = SamplesMetadata
     extra = 1  # number of empty forms shown by default
 
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("project_id", "title", "organization", "status", "submitted_by", "approved_by", "submission_date", "approved_at")
+    list_display = ("project_id", "title", "organization", "status", "submitted_by",   "submission_date",  )
     search_fields = ("title", "organization", "irb_code")
-    list_filter = ("status", "submission_date", "approved_at")
-    ordering = ("-created_date",)
+    # list_filter = ("status", "submission_date",  )
+    ordering = ("created_date",)
     inlines = [SamplesMetadataInline]
 
 
@@ -56,7 +60,7 @@ class SamplesMetadataAdmin(admin.ModelAdmin):
     list_display = (
         "submission_id",
         "project",
-        "user",
+        # "user",
         "facility_lab",
         "referring_lab",
         "organism",
@@ -65,14 +69,21 @@ class SamplesMetadataAdmin(admin.ModelAdmin):
         "host",
         "sequencing",
         "phenotype",
-        "entry_date",
-        "data_entered_by",
+        # "entry_date",
+        # "data_entered_by",
         "review_status",
     )
     search_fields = ("submission_id", "project__title", "user__username", "organism__name")
     list_filter = ("review_status", "entry_date", "facility_lab", "organism", "sample_type")
     ordering = ("-entry_date",)
-
+# Or group them into sections 
+    fieldsets = ( 
+        ("Project --", { "fields": ("project", "user", "entry_date", "data_entered_by"),
+                                 "classes": ("wide",),
+                                   }),
+        ("Sample Details", { "fields": ("organism", "sample_type", "location", "host"), "classes": ("wide",), }), 
+        ("Lab Details", { "fields": ("facility_lab", "referring_lab", "sequencing", "phenotype") ,"classes": ("wide",),}), 
+        ("Review", { "fields": ( ) }), )
 
 @admin.register(LabFacility)
 class LabFacilityAdmin(admin.ModelAdmin):
@@ -108,7 +119,7 @@ class HostMetadataAdmin(admin.ModelAdmin):
 class SequencingMetadataAdmin(admin.ModelAdmin):
     list_display = ("sequencing_id", "platform")
     search_fields = ("platform",)
-
+    exclude = ("review_status", "remarks")
 
 @admin.register(PhenotypeMetadata)
 class PhenotypeMetadataAdmin(admin.ModelAdmin):

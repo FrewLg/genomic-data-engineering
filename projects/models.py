@@ -19,12 +19,15 @@ class Project(models.Model):
     project_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255, unique=True)
     description = models.TextField()
-    submission_date = models.DateField(null=True, blank=True)
+    # submission_date = models.DateField(null=True, blank=True)
     created_date = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
-    submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="submitted_projects")
-    status = models.ForeignKey(ProjectStatus, on_delete=models.CASCADE)
+    # submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, rel/ated_name="submitted_projects")
+
+    submitted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False) 
+    submission_date = models.DateTimeField(auto_now_add=True, editable=False)
+    status = models.ForeignKey(ProjectStatus, on_delete=models.SET_NULL, null=True, editable=False)
 
     attachment = models.CharField(max_length=255, null=True, blank=True)
     mou = models.CharField(max_length=255, null=True, blank=True)
@@ -36,8 +39,8 @@ class Project(models.Model):
     metadata_type = models.ForeignKey(MetadataType, on_delete=models.SET_NULL, null=True, blank=True)
 
     irb_code = models.CharField(max_length=255, null=True, blank=True)
-    approved_at = models.DateField(null=True, blank=True)
-    sample_submitted_at = models.DateField(null=True, blank=True)
+    approved_at = models.DateField(auto_now_add=True, editable=False)
+    sample_submitted_at = models.DateField(auto_now_add=True, editable=False)
 
     def __str__(self):
         return self.title
@@ -114,7 +117,7 @@ class PhenotypeMetadata(models.Model):
 class SamplesMetadata(models.Model):
     submission_id = models.AutoField(primary_key=True)  # SERIAL PK
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sample_submissions")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False, related_name="sample_submissions")
     facility_lab = models.ForeignKey(LabFacility, on_delete=models.CASCADE, related_name="facility_samples")
     referring_lab = models.ForeignKey(LabFacility, on_delete=models.CASCADE, related_name="referring_samples")
     organism = models.ForeignKey(Organism, on_delete=models.CASCADE)
@@ -124,13 +127,14 @@ class SamplesMetadata(models.Model):
     sequencing = models.ForeignKey(SequencingMetadata, on_delete=models.CASCADE)
     phenotype = models.ForeignKey(PhenotypeMetadata, on_delete=models.CASCADE)
 
-    entry_date = models.DateTimeField(auto_now_add=True)  # Default CURRENT_TIMESTAMP
-    data_entered_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="entered_samples")
+    entry_date = models.DateField(null=True, blank=True )  # Default CURRENT_TIMESTAMP
+    data_entered_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False,  related_name="entered_samples")
 
     review_status = models.CharField(
         max_length=50,
         choices=[("Pending", "Pending"), ("Approved", "Approved"), ("Rejected", "Rejected")],
-        default="Pending"
+        # default="Pending",
+         null=True, editable=False
     )
     remarks = models.TextField(blank=True, null=True)
 
