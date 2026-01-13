@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os 
+from decouple import config # or use django-environ
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+
+
+
+SECRET_KEY = config("SECRET_KEY")
+GOOGLE_CLIENT_ID = config("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = config("GOOGLE_CLIENT_SECRET")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -313,10 +321,10 @@ SOCIALACCOUNT_PROVIDERS = {
         # For each OAuth based provider, either add a ``SocialApp``
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
-        'APP': {
-            'client_id': '1031956378248-usbc3vaqh4knu1094fdm1nm2c78qem9s.apps.googleusercontent.com',
-            'secret': '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',
-            'key': ''
+        'APP': { 
+            "client_id": config("GOOGLE_CLIENT_ID"), 
+            "secret": config("GOOGLE_CLIENT_SECRET"), 
+            "key": ""
         },
         "AUTH_PARAMS": { 
             "access_type": "online", 
@@ -325,3 +333,5 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 LOGIN_REDIRECT_URL = "/genome/projects/project/"
+
+ 
