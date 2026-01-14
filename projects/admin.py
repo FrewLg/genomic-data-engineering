@@ -34,10 +34,16 @@ class SamplesMetadataInline(admin.StackedInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("project_id", "title", "attachment", "organization", "status", "submitted_by",   "submission_date",  )
+    list_display = ("project_id", "title", "metadata_type", "organization", "status", "submitted_by",   "submission_date",  )
     search_fields = ("title", "organization", "irb_code")
     # list_filter = ("status", "submission_date",  )
     ordering = ("created_date",)
+
+    
+    inlines = (SamplesMetadata,)
+
+    # Order the sections within the change form
+    jazzmin_section_order = ("book loans", "dsssss", "other")
     inlines = [SamplesMetadataInline]
 
 

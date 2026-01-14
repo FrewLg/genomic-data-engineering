@@ -17,13 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings 
-from projects.views import homepage # import your homepage view
+from projects.views import homepage , ProjectListView# import your homepage view
 from django.conf.urls.static import static
  
 
 urlpatterns = [
 path("genome/", admin.site.urls), # 👈 this is required
 # path("admin/", admin , name="admin"), # 👈 this is required
+    path("projectss/", ProjectListView.as_view(), name="project-list"),
+
 path("", homepage, name="homepage"), # empty path → homepage
 path("genomic/", include("projects.urls")), # include your app urls
 path("accounts/", include("allauth.urls")), # 👈 adds login/logout/social routes

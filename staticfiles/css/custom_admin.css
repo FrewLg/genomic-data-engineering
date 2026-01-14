@@ -1,0 +1,90 @@
+/* Django Admin Custom Theme
+   Targets CSS Variables for easy global changes 
+*/
+
+:root {
+    /* Primary Colors - Change these to match your brand */
+    --primary: #2c3e50;            /* Header background */
+    --secondary: #34495e;          /* Sidebar/Sub-headers */
+    --accent: #3498db;             /* Links and active buttons */
+    --primary-button-bg: #27ae60;  /* Save button green */
+    --delete-button-bg: #e74c3c;   /* Delete button red */
+    
+    /* Text and UI */
+    --header-color: #ffffff;
+    --breadcrumbs-bg: #ecf0f1;
+    --body-bg: #f8f9fa;
+}
+
+/* 1. Header Styling */
+#header {
+    background: var(--primary);
+    color: var(--header-color);
+    padding: 15px 40px;
+    border-bottom: 4px solid var(--accent);
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.form-row .field-box {
+    flex: 1;
+}
+
+
+#header a:link, #header a:visited {
+    color: #fff;
+}
+
+/* 2. Sidebar Styling (Modern Look) */
+#nav-sidebar {
+    background-color: var(--secondary) !important;
+    border-right: 1px solid #ddd;
+}
+
+#nav-sidebar .module th, #nav-sidebar .module caption {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 3. Breadcrumbs */
+.breadcrumbs {
+    background: var(--breadcrumbs-bg);
+    padding: 10px 40px;
+    border-bottom: 1px solid #dee2e6;
+    color: #333;
+}
+
+/* 4. Buttons Styling */
+.button, input[type=submit], input[type=button], .submit-row input {
+    background: var(--accent);
+    border-radius: 4px;
+    padding: 8px 15px;
+    transition: background 0.3s ease;
+}
+
+.button.default, input[type=submit].default {
+    background: var(--primary-button-bg);
+}
+
+.button.default:hover {
+    filter: brightness(90%);
+}
+
+/* 5. Tables and List Results */
+#changelist table thead th {
+    background: var(--secondary);
+    color: white;
+}
+
+.row1 { background: #ffffff; }
+.row2 { background: #f2f2f2; }
+
+/* 6. Fix for Django 6.0 Dark Mode 
+   This ensures your custom colors take priority 
+*/
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-bg: #121212;
+        --primary: #1a1a1a;
+    }
+}
