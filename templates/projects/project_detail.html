@@ -1,15 +1,55 @@
 {% extends "base.html" %}
 {% block title %}Project Detail{% endblock %}
 {% block content %}
-  <h1>{{ project.title }}</h1>
-  <p>{{ project.description }}
+  <h3>{{ project.title }}</h3>
+  
+
+<div class="row">
+  <div class="col-md-12 mb-3" >
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        Project ID: {{ project.project_id }} {{ project.title }}
+      </div>
+      <div class="card-body">
+        <p>{{ project.description }}
     
   </p>
   {% if project.attachment %}
   <p><a href="{{ project.attachment.url }}">Download Attachment</a></p>
 {% endif %}
 
-<h2>Samples Metadata</h2>
+  {% if project.sequence_result %}
+  Your result is ready!<br>
+  <p><a href="{{ project.sequence_result.url }}">Download sequence result </a></p>
+{% endif %}
+
+
+        <p class="card-text">
+          <strong>Samples:</strong> {{ project.sample_count }}
+        </p>
+        <p class="card-text">
+          <strong>Metadata Type:</strong> {{ project.metadata_type }}
+        </p>
+        <p class="card-text">
+          <strong>Organization:</strong> {{ project.organization }}
+        </p>
+        <p class="card-text">
+          <strong>Status:</strong> {{ project.status }}
+        </p>
+        <p class="card-text">
+          <strong>Submitted By:</strong> {{ project.submitted_by }}
+        </p>
+        <p class="card-text">
+          <strong>Submission Date:</strong> {{ project.submission_date }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<h4>Samples Metadata <span class="badge bg-info">{{ project.sample_count }}</span></h4>
 
 <table class="table table-bordered table-sm p-2 mt-2">
   <tr>

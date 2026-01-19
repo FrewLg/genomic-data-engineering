@@ -101,5 +101,5 @@ def upload_sequence(request):
         form = ProjectForm()
     return render(request, "upload.html", {"form": form})
 
-#{"admin": "r00tmepcKV8MwbCT8PdPWu"}
+# Airflow {"admin": "r00tmepcKV8MwbCT8PdPWu"}
  

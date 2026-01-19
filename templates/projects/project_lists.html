@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Projects{% endblock %}
 {% block content %}
-<h1>Projects </h1>
+<h2>My Projects </h2>
 
 <form method="get">
   <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
@@ -16,7 +16,7 @@
       <th>Metadata Type</th>
       <th>Organization</th>
       <th>Status</th>
-      <th>Submitted By</th>
+      <!-- <th>Submitted By</th> -->
       <th>Submission Date</th>
       <th>Actions</th>
     </tr>
@@ -29,7 +29,7 @@
         <td>{{ project.metadata_type }}</td>
         <td>{{ project.organization }}</td>
         <td>{{ project.status }}</td>
-        <td>{{ project.submitted_by }}</td>
+        <!-- <td>{{ project.submitted_by }}</td> -->
         <td>{{ project.submission_date }}</td>
               <td><a href="{% url 'project_detail' project.pk %}">{{ project.id }} ---- {{ project.sample_count }} Samples</a></td>
 

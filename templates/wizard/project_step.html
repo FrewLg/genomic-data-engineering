@@ -10,11 +10,11 @@
                 </div>
                 <div class="card-body">
                     <p class="text-muted">Enter the core details for this genomic research project.</p>
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data" class="form-group">
                             {% csrf_token %}
                         {{ wizard.management_form }}
                         
-                        <div class="mb-3">
+                        <div class="mb-3" class="form-group">
                             {{ wizard.form.as_p }}
                         </div>
 
