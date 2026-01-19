@@ -12,8 +12,8 @@
                         <p class="lead">Please confirm that all genomic metadata samples and project details are correct.</p>
                     </div>
 
-                    <form action="" method="post">
-                        {% csrf_token %}
+                       <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %} 
                         {{ wizard.management_form }}
                         
                         {{ wizard.form }}

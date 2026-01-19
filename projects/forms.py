@@ -6,7 +6,7 @@ from .models import Project, SamplesMetadata
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'duration', 'organization', 'description']
+        fields = ['title', 'duration', 'organization', 'description','attachment' ]
 
 class SampleForm(forms.ModelForm):
     class Meta:

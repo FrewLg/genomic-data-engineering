@@ -48,7 +48,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-
+CSRF_TRUSTED_ORIGINS = ['http://*.127.0.0.1', 'http://gend.ephi.hd.com']
 # Application definition
 
 INSTALLED_APPS = [
@@ -94,10 +94,10 @@ MIDDLEWARE = [
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Library Admin",
+    "site_title": "GenDe Admin",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Library",
+    "site_header": "GenDe",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "EPHI-Genomi DE",
@@ -118,7 +118,7 @@ JAZZMIN_SETTINGS = {
     "site_icon": 'public/imgs/ephi.png',
 
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to the library",
+    "welcome_sign": "Welcome to the EPHI-Genomic Data Management",
 
     # Copyright on the footer
     "copyright": "EPHI -Genomic Data Engineering",

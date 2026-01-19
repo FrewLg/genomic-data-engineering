@@ -1,3 +1,5 @@
+from django.conf import settings  
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -23,8 +25,14 @@ class Project(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     # submitted_by = models.ForeignKey(User, on_delete=models.CASCADE, rel/ated_name="submitted_projects")
-
-    submitted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False) 
+ 
+    # submitted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, editable=False) 
+    submitted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE,
+        null=True, # Allow null temporarily if you have existing data
+        blank=True
+    )
     submission_date = models.DateTimeField(auto_now_add=True, editable=False)
     status = models.ForeignKey(ProjectStatus, on_delete=models.SET_NULL, null=True, editable=False)
 
