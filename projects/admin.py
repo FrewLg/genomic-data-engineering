@@ -40,10 +40,8 @@ class ProjectAdmin(admin.ModelAdmin):
     ordering = ("created_date",)
 
     
-    inlines = (SamplesMetadata,)
-
-    # Order the sections within the change form
-    jazzmin_section_order = ("book loans", "dsssss", "other")
+    inlines = (SamplesMetadata,) 
+    # jazzmin_section_order = ("book loans", "dsssss", "other")
     inlines = [SamplesMetadataInline]
 
 

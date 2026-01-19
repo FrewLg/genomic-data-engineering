@@ -22,13 +22,12 @@ from django.conf.urls.static import static
  
 
 urlpatterns = [
-path("genome/", admin.site.urls), # 👈 this is required
-# path("admin/", admin , name="admin"), # 👈 this is required
-    path("projectss/", ProjectListView.as_view(), name="project-list"),
-
-path("", homepage, name="homepage"), # empty path → homepage
-path("genomic/", include("projects.urls")), # include your app urls
-path("accounts/", include("allauth.urls")), # 👈 adds login/logout/social routes
-  
+path("genome/", admin.site.urls), 
+# path('admin/', admin.site), ##Dup
+path("all-projects/", ProjectListView.as_view(), name="project-list"),
+path("", homepage, name="homepage"), 
+path("genomic/", include("projects.urls")),  
+path("accounts/", include("allauth.urls")), 
+path('projects/', include('projects.urls')),  
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

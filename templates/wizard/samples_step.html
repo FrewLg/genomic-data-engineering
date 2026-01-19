@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Step 2: Metadata Samples for Genomic Data</h2>
+    
+    <form action="" method="post" id="wizard-form">
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        
+        <div id="sample-form-list">
+            {{ wizard.form.management_form }}
+            
+            {% for form in wizard.form %}
+                <div class="sample-form card mb-3 p-3 shadow-sm">
+                    <h5 class="card-title">Sample #{{ forloop.counter }}</h5>
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-3">
+            <button type="button" id="add-form" class="btn btn-info">＋ Add Another Sample</button>
+        </div>
+
+        <div class="mt-5 border-top pt-3">
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-secondary">Back</button>
+            <button type="submit" class="btn btn-primary px-5">Continue to Confirmation</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const addFormBtn = document.querySelector("#add-form");
+    const totalForms = document.querySelector("#id_samples-TOTAL_FORMS");
+
+    addFormBtn.addEventListener("click", function() {
+        const currentForms = document.getElementsByClassName("sample-form");
+        const formNum = currentForms.length; // Get current count
+        
+        // Clone the first form row
+        const newForm = currentForms[0].cloneNode(true);
+        
+        // Update the index in all attributes (id, name, for)
+        const formRegex = RegExp(`samples-(\\d)-`, 'g');
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `samples-${formNum}-`);
+        
+        // Clear the values in the cloned form
+        const inputs = newForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => input.value = '');
+
+        // Append to the list and increment total forms
+        document.querySelector("#sample-form-list").appendChild(newForm);
+        totalForms.setAttribute('value', `${formNum + 1}`);
+    });
+</script>
+{% endblock %}

@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     # "unfold.contrib.location_field",  # optional, if django-location-field package is used
     # "unfold.contrib.constance", 
     # "grappelli",
+    'formtools',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
