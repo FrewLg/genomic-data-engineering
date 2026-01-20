@@ -458,12 +458,19 @@ SOCIALACCOUNT_PROVIDERS = {
             "secret": config("GOOGLE_CLIENT_SECRET"), 
             "key": ""
         },
+         'SCOPE': ['profile', 'email'],
+
+
         "AUTH_PARAMS": { 
             "access_type": "online", 
+             'prompt': 'select_account',
             },
           "OAUTH2_CLIENT_CLASS": "allauth.socialaccount.providers.oauth2.client.OAuth2Client",
     }
 }
-LOGIN_REDIRECT_URL = "/genome/projects/project/"
+ACCOUNT_EMAIL_REQUIRED = True 
+# ACCOUNT_EMAIL_VERIFICATION = "optional" 
+ACCOUNT_LOGOUT_ON_GET = True
+LOGIN_REDIRECT_URL = "/all-projects/"
 
  

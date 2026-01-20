@@ -28,7 +28,19 @@
                 <a class="btn btn-primary btn-sm ms-lg-3" href="{% url 'project_wizard' %}">
                     <i class="bi bi-plus-lg p-0 ms-lg-3"></i> New Project
                 </a>
-            </div>
+           
+            <!-- <div class="collapse navbar-collapse" id="navbarNav"> <ul class="navbar-nav ms-auto">  -->
+                {% if user.is_authenticated %} 
+                <li class="nav-item"> 
+                    <a class="nav-link" href="{% url 'profile' %}"> 
+                        <i class="bi bi-person-circle"></i> Profile </a> </li> 
+                        <li class="nav-item"> 
+ <form method="post" action="{% url 'account_logout' %}" style="display:inline"> {% csrf_token %} <button type="submit" class="btn btn-link">Logout</button> </form>
+
+                        </li> {% else %} 
+                <li class="nav-item"> <a class="nav-link" href="{% url 'account_login' %}"> 
+                    <i class="bi bi-box-arrow-in-right"></i> Login </a> </li> {% endif %} 
+                </ul> </div>
         </div>
     </nav>
 

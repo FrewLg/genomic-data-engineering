@@ -51,7 +51,8 @@
 
 <h4>Samples Metadata <span class="badge bg-info">{{ project.sample_count }}</span></h4>
 
-<table class="table table-bordered table-sm p-2 mt-2">
+<div class=" table-responsive">
+<table class="table table-bordered table-sm p-2 mt-2 table-responsive">
   <tr>
     <th>Organism</th>
     <th>Sample Type</th>
@@ -59,6 +60,12 @@
     <th>Host</th>
     <th>Sequencing</th>
     <th>Phenotype</th>
+    <th>serotype</th>
+    <th>strain</th>
+    <th>propagation</th>
+    <th>drug exposure history</th>
+    <th>viral load</th>
+    <th>ct value</th>
   </tr>
   {% for sample in samples %}
   <tr>
@@ -68,11 +75,19 @@
     <td>{{ sample.host }}</td>
     <td>{{ sample.sequencing }}</td>
     <td>{{ sample.phenotype }}</td>
+    <td>{{ sample.serotype }}</td>
+        <td>{{ sample.strain }}</td>
+        <td>{{ sample.propagation }}</td>
+        <td>{{ sample.drug_exposure_history }}</td>
+        <td>{{ sample.viral_load }}</td>
+        <td>{{ sample.ct_value }}</td>
+
   </tr>
   {% empty %}
   <tr><td colspan="6">No samples yet.</td></tr>
   {% endfor %}
 </table>
+</div>
  
 {% endblock %}
 

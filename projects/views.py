@@ -10,7 +10,7 @@ import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from formtools.wizard.views import SessionWizardView
-
+from django.contrib.auth.views import LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -25,6 +25,17 @@ TEMPLATES = {
     "samples": "wizard/samples_step.html",
     "confirmation": "wizard/confirm_step.html",
 }
+
+
+# Profile view (only for logged-in users)
+@login_required
+def profile_view(request):
+    return render(request, "homepage/profile.html", {"user": request.user})
+
+# Logout view (you can also use Django’s built-in LogoutView directly in urls.py)
+class CustomLogoutView(LogoutView):
+    next_page = "home"  # redirect after logout (use your homepage URL name)
+
 
 class ProjectWizard(LoginRequiredMixin, SessionWizardView):
     file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'tmp'))

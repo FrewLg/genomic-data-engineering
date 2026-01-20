@@ -29,9 +29,9 @@
         <td>{{ project.metadata_type }}</td>
         <td>{{ project.organization }}</td>
         <td>{{ project.status }}</td>
-        <!-- <td>{{ project.submitted_by }}</td> -->
+        
         <td>{{ project.submission_date }}</td>
-              <td><a href="{% url 'project_detail' project.pk %}">{{ project.id }} ---- {{ project.sample_count }} Samples</a></td>
+              <td><a href="{% url 'project_detail' project.pk %}">{{ project.id }} ({{ project.sample_count }} )Samples</a></td>
 
       </tr>
     {% empty %}

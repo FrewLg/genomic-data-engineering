@@ -11,12 +11,23 @@ class ProjectForm(forms.ModelForm):
 class SampleForm(forms.ModelForm):
     class Meta:
         model = SamplesMetadata
-        fields = ['sample_type', 'organism', 'host', 'phenotype', 'facility_lab','referring_lab','location',
-                  'sequencing',
-                  ]
+    
+        fields = [
+            'sample_type', 'organism', 'host', 'phenotype', 'facility_lab', 'referring_lab', 'location',
+            'sequencing',
+            'parasite_density', 'life_stage', 'propagation', 'drug_exposure_history',
+            'serotype_or_lineage', 'serotype', 'strain', 'isolate', 'viral_load', 'ct_value', 'phenotype_notes',
+        ]
 
-# Create the formset for the "Many" part
+
 SampleFormSet = inlineformset_factory(
     Project, SamplesMetadata, form=SampleForm, 
-    extra=1, can_delete=True
+    extra=1, 
+    can_delete=False
 )
+
+    # fields = ['sample_type', 'organism', 'host', 'phenotype', 'facility_lab','referring_lab','location',
+        #           'sequencing',
+                 # ] 
+
+                 
