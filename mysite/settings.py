@@ -11,11 +11,25 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import environ,  os 
+# import environ
 from decouple import config # or use django-environ
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+
+ 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env.int('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
+EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL', default=False)
+EMAIL_BACKEND = env('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='webmaster@localhost')
 
 
 
@@ -48,7 +62,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-
+CSRF_TRUSTED_ORIGINS = ['http://*.127.0.0.1', 'http://gend.ephi.hd.com']
 # Application definition
 
 INSTALLED_APPS = [
@@ -64,6 +78,7 @@ INSTALLED_APPS = [
     # "unfold.contrib.location_field",  # optional, if django-location-field package is used
     # "unfold.contrib.constance", 
     # "grappelli",
+    'formtools',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -94,10 +109,10 @@ MIDDLEWARE = [
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Library Admin",
+    "site_title": "GenDe Admin",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Library",
+    "site_header": "GenDe",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "EPHI-Genomi DE",
@@ -118,7 +133,7 @@ JAZZMIN_SETTINGS = {
     "site_icon": 'public/imgs/ephi.png',
 
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to the library",
+    "welcome_sign": "Welcome to the EPHI-Genomic Data Management",
 
     # Copyright on the footer
     "copyright": "EPHI -Genomic Data Engineering",
@@ -458,14 +473,20 @@ SOCIALACCOUNT_PROVIDERS = {
             "secret": config("GOOGLE_CLIENT_SECRET"), 
             "key": ""
         },
-        "SCOPE": [ "profile", "email", ],
+         'SCOPE': ['profile', 'email'],
+
+
         "AUTH_PARAMS": { 
             "access_type": "online", 
+             'prompt': 'select_account',
             },
           "OAUTH2_CLIENT_CLASS": "allauth.socialaccount.providers.oauth2.client.OAuth2Client",
     }
 }
-LOGIN_REDIRECT_URL = "/genome/projects/project/"
+ACCOUNT_EMAIL_REQUIRED = True 
+# ACCOUNT_EMAIL_VERIFICATION = "optional" 
+ACCOUNT_LOGOUT_ON_GET = True
+LOGIN_REDIRECT_URL = "/projects/my-project/"
 
 # ACCOUNT_EMAIL_REQUIRED = True 
 # ACCOUNT_EMAIL_VERIFICATION = "optional" # or "mandatory" 

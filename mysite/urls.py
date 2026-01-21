@@ -17,17 +17,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings 
-from projects.views import homepage , ProjectListView# import your homepage view
+from projects.views import homepage , ProjectListView  
 from django.conf.urls.static import static
- 
+from django.contrib.auth.views import LoginView, LogoutView
+
+from django.shortcuts import redirect 
+def logout_get(request): 
+    logout(request) 
+    return redirect('home')
 
 urlpatterns = [
-path("genome/", admin.site.urls), # 👈 this is required
-# path("admin/", admin , name="admin"), # 👈 this is required
-path("projectss/", ProjectListView.as_view(), name="project-list"),
-path("", homepage, name="homepage"), # empty path → homepage
-path("genomic/", include("projects.urls")), # include your app urls
-path("accounts/", include("allauth.urls")), # 👈 adds login/logout/social routes
-  
+path("genome/", admin.site.urls), 
+
+path("all-projects/", ProjectListView.as_view(), name="project-list"),
+path("", homepage, name="homepage"), 
+path("genomic/", include("projects.urls")),  
+path("accounts/", include("allauth.urls")), 
+path('projects/', include('projects.urls')),  
+path('accounts/', include('allauth.urls')),
+ path("login/", LoginView.as_view(template_name="login.html"), name="login"), 
+ path("logout/", LogoutView.as_view(next_page="homepage"), name="logout"), 
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+ 

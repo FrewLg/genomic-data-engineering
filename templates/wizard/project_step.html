@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Step 1: Project Information</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Enter the core details for this genomic research project.</p>
+                <form action="" method="post" enctype="multipart/form-data" class="form-group">
+                            {% csrf_token %}
+                        {{ wizard.management_form }}
+                        
+                        <div class="mb-3" class="form-group">
+                            {{ wizard.form.as_p }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Next: Add Sample Metadata</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

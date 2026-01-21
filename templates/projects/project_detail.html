@@ -1,17 +1,58 @@
 {% extends "base.html" %}
 {% block title %}Project Detail{% endblock %}
 {% block content %}
-  <h1>{{ project.title }}</h1>
-  <p>{{ project.description }}
+  <h3>{{ project.title }}</h3>
+  
+
+<div class="row">
+  <div class="col-md-12 mb-3" >
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        Project ID: {{ project.project_id }} {{ project.title }}
+      </div>
+      <div class="card-body">
+        <p>{{ project.description }}
     
   </p>
   {% if project.attachment %}
   <p><a href="{{ project.attachment.url }}">Download Attachment</a></p>
 {% endif %}
 
-<h2>Samples Metadata</h2>
+  {% if project.sequence_result %}
+  Your result is ready!<br>
+  <p><a href="{{ project.sequence_result.url }}">Download sequence result </a></p>
+{% endif %}
 
-<table>
+
+        <p class="card-text">
+          <strong>Samples:</strong> {{ project.sample_count }}
+        </p>
+        <p class="card-text">
+          <strong>Metadata Type:</strong> {{ project.metadata_type }}
+        </p>
+        <p class="card-text">
+          <strong>Organization:</strong> {{ project.organization }}
+        </p>
+        <p class="card-text">
+          <strong>Status:</strong> {{ project.status }}
+        </p>
+        <p class="card-text">
+          <strong>Submitted By:</strong> {{ project.submitted_by }}
+        </p>
+        <p class="card-text">
+          <strong>Submission Date:</strong> {{ project.submission_date }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<h4>Samples Metadata <span class="badge bg-info">{{ project.sample_count }}</span></h4>
+
+<div class=" table-responsive">
+<table class="table table-bordered table-sm p-2 mt-2 table-responsive">
   <tr>
     <th>Organism</th>
     <th>Sample Type</th>
@@ -19,6 +60,12 @@
     <th>Host</th>
     <th>Sequencing</th>
     <th>Phenotype</th>
+    <th>serotype</th>
+    <th>strain</th>
+    <th>propagation</th>
+    <th>drug exposure history</th>
+    <th>viral load</th>
+    <th>ct value</th>
   </tr>
   {% for sample in samples %}
   <tr>
@@ -28,11 +75,19 @@
     <td>{{ sample.host }}</td>
     <td>{{ sample.sequencing }}</td>
     <td>{{ sample.phenotype }}</td>
+    <td>{{ sample.serotype }}</td>
+        <td>{{ sample.strain }}</td>
+        <td>{{ sample.propagation }}</td>
+        <td>{{ sample.drug_exposure_history }}</td>
+        <td>{{ sample.viral_load }}</td>
+        <td>{{ sample.ct_value }}</td>
+
   </tr>
   {% empty %}
   <tr><td colspan="6">No samples yet.</td></tr>
   {% endfor %}
 </table>
+</div>
  
 {% endblock %}
 

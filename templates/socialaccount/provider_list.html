@@ -1,0 +1,12 @@
+{% load socialaccount %}
+<ul class="social-providers">
+  {% for provider in socialaccount_providers %}
+    <li class="provider-item">
+      <a class="provider-btn provider-{{ provider.id }}" href="{% provider_login_url provider.id process='login' %}">
+        <span class="provider-icon">{{ provider.name }}</span>
+      </a>
+    </li>
+  {% empty %}
+    <li class="no-providers">No social providers configured</li>
+  {% endfor %}
+</ul>

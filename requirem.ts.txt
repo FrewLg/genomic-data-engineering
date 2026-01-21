@@ -1,0 +1,3 @@
+pip install  django-jazzmin
+pip install django-formtools
+pip install django-allauth

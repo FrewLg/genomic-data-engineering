@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Step 2: Metadata Samples for Genomic Data</h2>
+    
+    <!-- <form action="" method="post" id="wizard-form"> -->
+ <form method="post" enctype="multipart/form-data" id="samples-form">
+     {% csrf_token %} {{ wizard.management_form }} 
+     <div id="sample-formset"> 
+        {{ wizard.form.management_form }} 
+        {% for form in wizard.form %} 
+        <div class="sample-row mb-3 p-3 border" data-index="{{ forloop.counter0 }}"> 
+            <div class="form-fields"> {{ form.as_p }} </div> {# Keep the DELETE input but hide it from users #} 
+            <div style="display:none;"> {{ form.DELETE }} </div> 
+            
+            <button type="button" class="btn btn-danger remove-row">Remove</button> 
+        </div> 
+        
+        {% endfor %} 
+    </div>
+       <div class="mt-3">
+    <button type="button" id="add-sample" class="btn btn-secondary">Add Another Sample</button>
+        </div>
+
+        <div class="mt-5 border-top pt-3">
+        
+        <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-secondary">Back</button>
+
+     <button type="submit" class="btn btn-primary">Next</button>
+    </div>
+             
+</form>
+
+<div id="empty-form-template" style="display:none;"> 
+    <div class="sample-row mb-3 p-3 border" data-index="__prefix__"> 
+        <div class="form-fields"> {{ wizard.form.empty_form.as_p|safe }} </div> 
+        <div style="display:none;">
+             <input type="checkbox" name="samples-__prefix__-DELETE" id="id_samples-__prefix__-DELETE" /> </div>
+              <button type="button" class="remove-row btn btn-danger ">Remove</button> 
+            </div> 
+        </div>
+
+</div>
+
+<script>
+//  document.getElementById('add-sample').onclick = function() {
+//     // 1. Find the Management Form field
+//     const totalForms = document.getElementById('id_samples-TOTAL_FORMS');
+//     const formNum = parseInt(totalForms.value);
+
+//     // 2. Clone the last sample row
+//     const container = document.getElementById('sample-formset');
+//     const allRows = container.getElementsByClassName('sample-row');
+//     const newForm = allRows[0].cloneNode(true); // Clone the first one as a template
+
+//     // 3. Update the index in all IDs and Names (0 -> 1, 1 -> 2, etc.)
+//     // This regex looks for "samples-0-" and replaces it with "samples-1-"
+//     newForm.innerHTML = newForm.innerHTML.replace(/samples-\d-/g, `samples-${formNum}-`);
+
+//     // 4. Clear values in the new row so it's not a duplicate of data
+//     const inputs = newForm.querySelectorAll('input, select, textarea');
+//     inputs.forEach(input => {
+//         if (input.type !== 'hidden') input.value = '';
+//     });
+
+//     // 5. Add to page and INCREMENT the total count
+//     container.appendChild(newForm);
+//     totalForms.value = formNum + 1; // THIS IS THE CRITICAL LINE
+// };
+
+document.addEventListener('DOMContentLoaded', function () {
+  const container = document.getElementById('sample-formset');
+  const totalFormsInput = document.getElementById('id_samples-TOTAL_FORMS');
+  const emptyTemplateHtml = document.getElementById('empty-form-template').innerHTML;
+
+  function reindexRows() {
+    const rows = container.querySelectorAll('.sample-row');
+    rows.forEach((row, i) => {
+      row.dataset.index = i;
+      // update names/ids/htmlFor for inputs, selects, textareas, labels
+      row.querySelectorAll('input, select, textarea, label').forEach(el => {
+        if (el.name) el.name = el.name.replace(/samples-\d+-/g, `samples-${i}-`);
+        if (el.id) el.id = el.id.replace(/samples-\d+-/g, `samples-${i}-`);
+        if (el.htmlFor) el.htmlFor = el.htmlFor.replace(/samples-\d+-/g, `samples-${i}-`);
+      });
+    });
+    if (totalFormsInput) totalFormsInput.value = rows.length;
+  }
+
+  // Add row: clone empty template and reindex
+  document.getElementById('add-sample').addEventListener('click', function () {
+    const currentTotal = parseInt(totalFormsInput.value, 10);
+    const newHtml = emptyTemplateHtml.replace(/__prefix__/g, currentTotal);
+    container.insertAdjacentHTML('beforeend', newHtml);
+    reindexRows();
+  });
+
+  // Remove row: set DELETE and hide row (preserves Django can_delete semantics)
+  container.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('remove-row')) return;
+    const row = e.target.closest('.sample-row');
+    const index = row.dataset.index;
+
+    // Try to find the DELETE input and check it
+    let deleteInput = row.querySelector(`input[name="samples-${index}-DELETE"]`);
+    if (!deleteInput) {
+      // create a hidden input if not present
+      deleteInput = document.createElement('input');
+      deleteInput.type = 'hidden';
+      deleteInput.name = `samples-${index}-DELETE`;
+      deleteInput.value = 'on';
+      row.appendChild(deleteInput);
+    } else {
+      if (deleteInput.type === 'checkbox') deleteInput.checked = true;
+      else deleteInput.value = 'on';
+    }
+
+    // hide the row visually
+    row.style.display = 'none';
+
+    // Optionally reindex visible rows and update TOTAL_FORMS if you want removed rows removed from POST entirely.
+    // If you prefer to keep deletion flags (recommended), do NOT remove the DOM node; just hide it.
+    // If you want to physically remove and renumber, uncomment the lines below:
+    // row.remove();
+    // reindexRows();
+  });
+
+  // Ensure indices are correct on initial load
+  reindexRows();
+});
+
+</script>
+{% endblock %}
