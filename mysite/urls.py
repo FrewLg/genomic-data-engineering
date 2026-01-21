@@ -24,8 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
 path("genome/", admin.site.urls), # 👈 this is required
 # path("admin/", admin , name="admin"), # 👈 this is required
-    path("projectss/", ProjectListView.as_view(), name="project-list"),
-
+path("projectss/", ProjectListView.as_view(), name="project-list"),
 path("", homepage, name="homepage"), # empty path → homepage
 path("genomic/", include("projects.urls")), # include your app urls
 path("accounts/", include("allauth.urls")), # 👈 adds login/logout/social routes

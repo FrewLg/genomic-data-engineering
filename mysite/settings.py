@@ -52,7 +52,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Application definition
 
 INSTALLED_APPS = [
-     "projects.apps.ProjectsConfig",
+    #  "projects.apps.ProjectsConfig",
      "jazzmin",
         # "unfold",  # before django.contrib.admin
     # "unfold.contrib.filters",  # optional, if special filters are needed
@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount", 
     "allauth.socialaccount.providers.google",
     # 'allauth.socialaccount.providers.google',
+     "projects",
 
 ]
 
@@ -457,6 +458,7 @@ SOCIALACCOUNT_PROVIDERS = {
             "secret": config("GOOGLE_CLIENT_SECRET"), 
             "key": ""
         },
+        "SCOPE": [ "profile", "email", ],
         "AUTH_PARAMS": { 
             "access_type": "online", 
             },
@@ -465,4 +467,6 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 LOGIN_REDIRECT_URL = "/genome/projects/project/"
 
- 
+# ACCOUNT_EMAIL_REQUIRED = True 
+# ACCOUNT_EMAIL_VERIFICATION = "optional" # or "mandatory" 
+# ACCOUNT_UNIQUE_EMAIL = True
