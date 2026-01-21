@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-md-12 mb-3" >
     <div class="card shadow-sm">
-      <div class="card-header bg-primary text-white">
+      <div class="card-header bg-primary   opacity-50 text-white">
         Project ID: {{ project.project_id }} {{ project.title }}
       </div>
       <div class="card-body">
@@ -52,8 +52,9 @@
 <h4>Samples Metadata <span class="badge bg-info">{{ project.sample_count }}</span></h4>
 
 <div class=" table-responsive">
-<table class="table table-bordered table-sm p-2 mt-2 table-responsive">
-  <tr>
+<table class="table table-borderless table-sm p-2 mt-2 table-responsive">
+  <tr  class="table-primary opacity-75">
+       
     <th>Organism</th>
     <th>Sample Type</th>
     <th>Location</th>

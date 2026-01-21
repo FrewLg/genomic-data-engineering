@@ -1,1 +1,4 @@
-.envmedia/sequence_result
+.env
+media/sequence_result
+db.sqlite3
+

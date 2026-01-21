@@ -2,6 +2,7 @@ from django import forms  # <--- ADD THIS LINE
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.db.models import Count
 from .models import Project
 from .forms import ProjectForm ,SampleFormSet

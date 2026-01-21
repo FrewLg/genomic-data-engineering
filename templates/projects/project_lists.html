@@ -4,19 +4,24 @@
 <h2>My Projects </h2>
 
 <form method="get">
-  <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
-  <button type="submit" class="btn btn-info">Search</button>
+  <div class="row">
+  <div class="col col-md-12 form-group inline">
+<input type="text" name="q" placeholder="Search..."  class="form-contsrol col col-4 mb-1" value="{{ request.GET.q }}">
+  <button type="submit" class="btn btn-primary mb-1 text-light"><i class="bi bi-search   p-0 ms-lg-3"></i>Search</button>
+  </div>
+  </div>
+  
 </form>
 
 <table class="table table-bordered table-sm p-2 mt-2">
   <thead>
     <tr>
       <th>Project ID</th>
-      <th>Title</th>
+      <th>Duration</th>
+      <th>Approved</th>
       <th>Metadata Type</th>
       <th>Organization</th>
       <th>Status</th>
-      <!-- <th>Submitted By</th> -->
       <th>Submission Date</th>
       <th>Actions</th>
     </tr>
@@ -25,7 +30,8 @@
     {% for project in projects %}
       <tr>
         <td>{{ project.project_id }}</td>
-        <td>  -- ({{ project.sample_count }}) Samples</td>
+        <td>    ({{ project.approved_at }}) </td>
+        <td>    ({{ project.approved_by }}) </td>
         <td>{{ project.metadata_type }}</td>
         <td>{{ project.organization }}</td>
         <td>{{ project.status }}</td>

@@ -18,7 +18,7 @@ from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
- 
+BASE_DIR = Path(__file__).resolve().parent.parent 
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -44,7 +44,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]  # optional, for extra static dirs
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
+ 
 # 2. Tell Django to look in your project's 'static' folder
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static'),
@@ -93,7 +93,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     # 'allauth.socialaccount.providers.google',
      "projects",
-
+"widget_tweaks",
 ]
 
 MIDDLEWARE = [

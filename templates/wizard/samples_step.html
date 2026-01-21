@@ -9,9 +9,14 @@
      {% csrf_token %} {{ wizard.management_form }} 
      <div id="sample-formset"> 
         {{ wizard.form.management_form }} 
+
+         
+
         {% for form in wizard.form %} 
-        <div class="sample-row mb-3 p-3 border" data-index="{{ forloop.counter0 }}"> 
-            <div class="form-fields"> {{ form.as_p }} </div> {# Keep the DELETE input but hide it from users #} 
+
+        <div class="sample-row mb-3 p-3 border form-control" data-index="{{ forloop.counter0 }}"> 
+            <div class="form-fiedlds "> {{ form.as_p }} </div> 
+            
             <div style="display:none;"> {{ form.DELETE }} </div> 
             
             <button type="button" class="btn btn-danger remove-row">Remove</button> 
