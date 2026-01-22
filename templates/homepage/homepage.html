@@ -1,9 +1,101 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Welcome to GenDE</h1>
-<p>This homepage now uses EPIGEN.</p>
+<!-- <p>This homepage now uses EPIGEN.</p> -->
  
-<h1>Welcome to My Site</h1>
-<p>This is the homepage.</p>
-<a href="{% url 'project_list' %}">View Projects</a>
+<!-- <h1>Welcome to My Site</h1> -->
+
+<!-- Bootstrap Cards Section -->
+<div class="container my-5">
+  <h2 class="text-center mb-4">Genomic Data Submission & Tracking</h2>
+  <p class="text-center text-muted mb-5">
+    Follow these simple steps to submit your genomic data, track progress, and receive your sequencing results.
+  </p>
+
+  <div class="row">
+    <!-- Step 1: Overview -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-info-circle display-4 text-primary mb-3"></i>
+          <h5 class="card-title">Overview</h5>
+          <p class="card-text">
+            Learn the guidelines for submitting genomic data securely and efficiently. Ensure your files meet the required format and metadata standards.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Submission -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-upload display-4 text-success mb-3"></i>
+          <h5 class="card-title">Submit Data</h5>
+          <p class="card-text">
+            Upload your genomic data through our submission portal. Provide necessary details such as sample ID, sequencing type, and consent information.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Tracking -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-bar-chart-line display-4 text-warning mb-3"></i>
+          
+<a href="{% url 'project_list' %}" class="text-info ">
+            
+       <h5 class="card-title">    Track Progress </h5> </a>
+       
+          <p class="card-text">
+            Monitor the status of your submission in real-time. Get updates on quality checks, sequencing progress, and analysis stages.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Receive Results -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-envelope-open display-4 text-danger mb-3"></i>
+          <h5 class="card-title">Receive Results</h5>
+          <p class="card-text">
+            Once sequencing is complete, securely download your genome data and analysis report. Notifications will be sent to your registered email.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: Support -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-headset display-4 text-info mb-3"></i>
+          <h5 class="card-title">Need Help?</h5>
+          <p class="card-text">
+            Our support team is available to assist with submission issues, tracking queries, or data interpretation guidance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-book display-4 text-success mb-3"></i>
+          <h5 class="card-title">Guideleine</h5>
+          <p class="card-text">
+            Doewnload a guidelline and see the submission and trachink progress, helps you to submit quality data.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <p>Submit your genomic sample metadata.</p>
+Track your submission progress <br> -->
 {% endblock %}
